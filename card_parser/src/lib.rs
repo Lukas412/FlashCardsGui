@@ -1,9 +1,12 @@
 use derive_more::{Display, Error, From};
 use nom::bytes::complete::take_until;
 use nom::error::ParseError;
-use nom::{IResult, Parser};
+use nom::IResult;
 
-pub fn parse_topic_from_str(input: &str) -> Result<Topic, TopicParseError> {
+pub fn parse_topic_from_str<'a, Error>(input: &'a str) -> Result<Topic, TopicParseError<'a, Error>>
+where
+    Error: ParseError<&'a str>,
+{
     let (input, title) = take_topic_title(input)?;
     let (input, cards) = take_cards(input)?;
     if input.trim() != "" {
