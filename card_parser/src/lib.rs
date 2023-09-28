@@ -6,6 +6,10 @@ use nom::{IResult, Parser};
 pub fn parse_topic_from_str(input: &str) -> Result<Topic, TopicParseError> {
     let (input, title) = take_topic_title(input)?;
     let (input, cards) = take_cards(input)?;
+    if input.trim() != "" {
+        return Err(TopicParseError::ExpectedToParseToTheEnd { remaining: input });
+    }
+    Ok(Topic { title, cards })
 }
 
 fn take_topic_title<'a, Error>(
@@ -42,6 +46,7 @@ fn take_cards(input: &str) -> IResult<&str, Vec<Card>> {}
 #[derive(Debug, Display, From, Error)]
 pub enum TopicParseError<'a, Error> {
     Title(TitleParseError<'a, Error>),
+    ExpectedToParseToTheEnd { remaining: &'a str },
 }
 
 #[derive(Debug, Display, Error)]
@@ -53,7 +58,7 @@ pub enum TitleParseError<'a, Error> {
 }
 
 pub struct Topic {
-    name: Box<str>,
+    title: Box<str>,
     cards: Vec<Card>,
 }
 
