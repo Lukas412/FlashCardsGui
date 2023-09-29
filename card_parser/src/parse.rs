@@ -1,3 +1,4 @@
+use crate::Topic;
 use derive_more::{Display, Error, From};
 use nom::bytes::complete::{tag, take_until};
 use nom::FindSubstring;
@@ -10,7 +11,11 @@ pub enum ParseError<'a> {
     TopicTitleIsMutltipleLinesLong { title: &'a str },
 }
 
-pub(crate) fn topic(input: &str) -> Result<(&str, &str), ParseError> {}
+pub(crate) fn topic(input: &str) -> Result<(&str, Topic), ParseError> {
+    let (input, title) = topic_title(input)?;
+    let (input, cards) = cards(input)?;
+    Ok((input, Topic { title, cards }))
+}
 
 fn topic_title(input: &str) -> Result<(&str, &str), ParseError> {
     let (input, text) =
