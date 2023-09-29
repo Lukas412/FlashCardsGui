@@ -1,18 +1,19 @@
 Software -> Use-Case-Diagramme
 
----
+/==
 Wie nennt man den Kasten um das UseCase Diagramm?
-&
+/-
 Die Systemgrenze.
----
+
+/==
 Wie zeichnet man eine Systemgrenze?
-&
+/-
 Als Kasten um das Use Case Diagramm.
 Am oberen Rand wird der Name des Systems angegeben.
 
 Die Akteure werden außerhalb und die Use-Cases innerhalb der Systemgrenze dargestellt.
----
+
+/==
 Wie werden Use-Cases dargestellt?
-&
+/-
 Use cases werden als mit Ovalen umrahmte Texte dargestellt.
----
