@@ -2,47 +2,61 @@ use derive_more::{Display, Error, From};
 use nom::bytes::complete::{tag, take_until};
 use nom::FindSubstring;
 
-pub(crate) fn topic_title(input: &str) -> Result<(&str, &str), ExpectedTopicTitle> {
-    let (input, line) = trimed_line(input);
-    if line == "" {
-        return Err(ExpectedTopicTitle::EmptyTitle);
+#[derive(Debug, Display, Error, From)]
+pub enum ParseError<'a> {
+    TopicTitleIsEmpty,
+    CardQuestionIsEmpty,
+    CardAnswerIsIsEmpty,
+    TopicTitleIsMutltipleLinesLong { title: &'a str },
+}
+
+pub(crate) fn topic(input: &str) -> Result<(&str, &str), ParseError> {}
+
+fn topic_title(input: &str) -> Result<(&str, &str), ParseError> {
+    let (input, text) =
+        text_until_card_separator(input).map_err(|_| ParseError::TopicTitleIsEmpty)?;
+    if text.contains("\n") {
+        return Err(ParseError::TopicTitleIsMutltipleLinesLong { title: text });
     }
-    let input = take_empty_lines(line);
-    if input == "" {
-        return Ok(("", line));
-    };
+    Ok((input, text))
+}
+
+fn cards(input: &str) -> Result<(&str, &str), ExpectedCard> {
     let input = take_card_separator(input)?;
-    Ok((input, line))
+    let results = Vec::new();
 }
 
-#[derive(Debug, Display, Error, From)]
-pub enum ExpectedTopicTitle<'a> {
-    #[display(fmt = "Expected a card separator after the Title.\n{inner}")]
-    CardSeparator { inner: ExpectedCardSeparator<'a> },
-    #[display(
-        fmt = "The title of a topic cannot be empty. Please specigy a title in the first line of the file."
-    )]
-    EmptyTitle,
+fn card(input: &str) -> Result<(&str, &str), ExpectedCard> {
+    let input = take_card_separator(input)?;
 }
 
-fn cards(input: &str) -> Result<(&str, &str), ExpectedCard> {}
+struct TextIsEmpty;
 
-fn card(input: &str) -> Result<(&str, &str), ExpectedCard> {}
-
-#[derive(Debug, Display, Error, From)]
-pub enum ExpectedCard {}
-
-fn take_card_separator(input: &str) -> Result<&str, ExpectedCardSeparator> {
-    let (input, line) = trimed_line(input);
-    if line != "---" {
-        return Err(ExpectedCardSeparator { line });
+fn text_until_card_separator(input: &str) -> Result<(&str, &str), TextIsEmpty> {
+    let (input, text) = split_text("\n/==", input);
+    let text = text.trim();
+    if text == "" {
+        return Err(TextIsEmpty);
     }
-    Ok(input)
+    Ok((input, text))
 }
 
-#[derive(Debug, Display, Error, From)]
-pub struct ExpectedCardSeparator<'a> {
-    line: &'a str,
+fn text_until_card_divider(input: &str) -> Result<(&str, &str), TextIsEmpty> {
+    let (input, text) = split_text("\n/-", input);
+    let text = text.trim();
+    if text == "" {
+        return Err(TextIsEmpty);
+    }
+    Ok((input, text))
+}
+
+fn split_text(separator: &str, input: &str) -> (&str, &str) {
+    let (input, text) = match input.find_substring("\n==") {
+        Some(index) => input.split_at(index),
+        None => ("", input),
+    };
+    input.strip_prefix("\n/==").unwrap_or(input);
+    (input, text)
 }
 
 fn take_card_divider(input: &str) -> Result<&str, ExpectedCardDivider> {
@@ -51,10 +65,6 @@ fn take_card_divider(input: &str) -> Result<&str, ExpectedCardDivider> {
         return Err(ExpectedCardDivider { line });
     }
     Ok(input)
-}
-
-pub struct ExpectedCardDivider<'a> {
-    line: &'a str,
 }
 
 fn take_empty_lines(mut input: &str) -> &str {
@@ -82,8 +92,4 @@ fn line(input: &str) -> (&str, &str) {
         }
         None => ("", input),
     }
-}
-
-pub struct ExpectedLine<'a> {
-    input: &'a str,
 }

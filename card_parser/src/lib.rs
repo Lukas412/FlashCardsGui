@@ -1,7 +1,6 @@
 use derive_more::{Display, Error, From};
 
 use crate::parse::ExpectedTopicTitle;
-use parse::topic_title;
 
 mod parse;
 
