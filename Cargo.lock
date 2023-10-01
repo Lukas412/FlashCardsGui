@@ -6,15 +6,7 @@ version = 3
 name = "FlashCardsGui"
 version = "0.1.0"
 dependencies = [
- "card_parser",
-]
-
-[[package]]
-name = "card_parser"
-version = "0.1.0"
-dependencies = [
- "derive_more",
- "nom",
+ "flash_card_parser",
 ]
 
 [[package]]
@@ -35,6 +27,16 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+ "unicode-xid",
+]
+
+[[package]]
+name = "flash_card_parser"
+version = "0.1.0"
+source = "git+https://github.com/Lukas412/FlashCardParser.git#337af2dfd88b8eac119c2a8408a32efdc8adf512"
+dependencies = [
+ "derive_more",
+ "nom",
 ]
 
 [[package]]
@@ -93,3 +95,9 @@ name = "unicode-ident"
 version = "1.0.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b"
+
+[[package]]
+name = "unicode-xid"
+version = "0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f962df74c8c05a667b5ee8bcf162993134c104e96440b663c8daa176dc772d8c"
