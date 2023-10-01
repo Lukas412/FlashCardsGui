@@ -3,14 +3,6 @@
 version = 3
 
 [[package]]
-name = "FlashCardsGui"
-version = "0.1.0"
-dependencies = [
- "flash_card_parser",
- "xilem",
-]
-
-[[package]]
 name = "accesskit"
 version = "0.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -775,6 +767,14 @@ version = "0.1.0"
 source = "git+https://github.com/dfrg/fount?rev=dadbcf75695f035ca46766bfd60555d05bd421b1#dadbcf75695f035ca46766bfd60555d05bd421b1"
 dependencies = [
  "read-fonts",
+]
+
+[[package]]
+name = "flash_card_gui"
+version = "0.1.0"
+dependencies = [
+ "flash_card_parser",
+ "xilem",
 ]
 
 [[package]]
