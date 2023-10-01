@@ -5,4 +5,4 @@ edition = "2021"
 
 [dependencies]
 flash_card_parser = { git = "https://github.com/Lukas412/FlashCardParser.git" }
-xilem = { git = "https://github.com/linebender/xilem.git" }
+slint = "1.2.1"
