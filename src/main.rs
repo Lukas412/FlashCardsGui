@@ -1,11 +1,16 @@
+use flash_card_parser::Topic;
 use iced::widget::{button, column, text};
 use iced::{Element, Sandbox, Settings};
+
+mod learning;
 
 fn main() -> iced::Result {
     FlashCardsApp::run(Settings::default())
 }
 
-struct FlashCardsApp {}
+struct FlashCardsApp {
+    topic: Topic<'static>,
+}
 
 impl Sandbox for FlashCardsApp {
     type Message = ();
