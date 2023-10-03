@@ -1,22 +1,19 @@
-use iced::widget::{button, column, text, Column};
+use iced::widget::column;
 use iced::{Element, Sandbox, Settings};
 
 fn main() -> iced::Result {
     FlashCards::run(Settings::default())
 }
 
-enum FlashCards {
-    QuestionPage { question: String },
-    AnswerPage { answer: String },
+struct FlashCards {
+    counter: i8,
 }
 
 impl Sandbox for FlashCards {
     type Message = ();
 
     fn new() -> Self {
-        FlashCards::QuestionPage {
-            question: "Das ist die Fragekarte.".to_owned(),
-        }
+        Self { counter: 0 }
     }
 
     fn title(&self) -> String {
@@ -28,6 +25,10 @@ impl Sandbox for FlashCards {
     }
 
     fn view(&self) -> Element<'_, Self::Message> {
-        column![text("hallo"), text("other  text")].into()
+        column![
+            iced::widget::text("hallo"),
+            iced::widget::text("other  text")
+        ]
+        .into()
     }
 }
