@@ -1,6 +1,8 @@
 [package]
-name = "FlashCardsGui"
+name = "flash_card_gui"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+flash_card_parser = { git = "https://github.com/Lukas412/FlashCardParser.git" }
+iced = "0.10.0"
