@@ -1,15 +1,13 @@
-use iced::widget::column;
+use iced::widget::{button, column, text};
 use iced::{Element, Sandbox, Settings};
 
 fn main() -> iced::Result {
-    FlashCards::run(Settings::default())
+    FlashCardsApp::run(Settings::default())
 }
 
-struct FlashCards {
-    counter: i8,
-}
+struct FlashCardsApp {}
 
-impl Sandbox for FlashCards {
+impl Sandbox for FlashCardsApp {
     type Message = ();
 
     fn new() -> Self {
@@ -20,14 +18,13 @@ impl Sandbox for FlashCards {
         "Karteikarten App (Rust)".to_owned()
     }
 
-    fn update(&mut self, message: Self::Message) {
-        todo!()
-    }
+    fn update(&mut self, message: Self::Message) {}
 
     fn view(&self) -> Element<'_, Self::Message> {
         column![
-            iced::widget::text("hallo"),
-            iced::widget::text("other  text")
+            text("hallo"),
+            text("other  text"),
+            button("ajsldfkjsalkjf").on_press(())
         ]
         .into()
     }
