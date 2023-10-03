@@ -1,6 +1,7 @@
 use flash_card_parser::Topic;
 use iced::widget::{button, column, text};
 use iced::{Element, Sandbox, Settings};
+use crate::learning::LearningElement;
 
 mod learning;
 
@@ -9,14 +10,14 @@ fn main() -> iced::Result {
 }
 
 struct FlashCardsApp {
-    topic: Topic<'static>,
+    learning: LearningElement,
 }
 
 impl Sandbox for FlashCardsApp {
-    type Message = ();
+    type Message = ;
 
     fn new() -> Self {
-        Self { counter: 0 }
+        Self {  }
     }
 
     fn title(&self) -> String {
