@@ -40,8 +40,8 @@ impl LearningPage {
 
     fn view(&mut self) -> Column<LearningAction> {
         Column::with_children(vec![
-            text("Hallo").into(),
-            button("content").on_press(LearningAction::Uncover).into(),
+            text("Was ist eine Frage?").into(),
+            button("Aufdecken").on_press(LearningAction::Uncover).into(),
         ])
     }
 }
