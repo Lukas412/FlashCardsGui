@@ -2,6 +2,7 @@ use flash_card_parser::Topic;
 use iced::widget::Column;
 use std::fs::File;
 use std::io::BufReader;
+use std::path::Path;
 
 pub(crate) struct LearningElement {
     topic: Topic<'static>,
@@ -9,8 +10,8 @@ pub(crate) struct LearningElement {
 }
 
 impl LearningElement {
-    pub(crate) fn new() -> anyhow::Result<Self> {
-        let file = File::open("material/FU0_UseCaseDiagram.json")?;
+    pub(crate) fn new(path: impl AsRef<Path>) -> anyhow::Result<Self> {
+        let file = File::open(path)?;
         let buffer = BufReader::new(file);
         let topic = serde_json::from_reader(buffer)?;
         Ok(Self {
