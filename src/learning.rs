@@ -1,5 +1,5 @@
 use flash_card_parser::Topic;
-use iced::widget::Column;
+use iced::widget::{button, text, Column};
 use std::fs::File;
 use std::io::BufReader;
 use std::path::Path;
@@ -38,5 +38,10 @@ impl LearningPage {
         Self::Question
     }
 
-    fn view(&mut self) -> Column<LearningAction> {}
+    fn view(&mut self) -> Column<LearningAction> {
+        Column::with_children(vec![
+            text("Hallo").into(),
+            button("content").on_press(LearningAction::Uncover).into(),
+        ])
+    }
 }
