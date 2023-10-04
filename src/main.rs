@@ -1,7 +1,7 @@
-use flash_card_parser::Topic;
+use crate::learning::{LearningAction, LearningElement};
+use derive_more::From;
 use iced::widget::{button, column, text};
 use iced::{Element, Sandbox, Settings};
-use crate::learning::LearningElement;
 
 mod learning;
 
@@ -13,11 +13,18 @@ struct FlashCardsApp {
     learning: LearningElement,
 }
 
+#[derive(Debug, Clone, Copy, From)]
+enum AppActions {
+    Learning(LearningAction),
+}
+
 impl Sandbox for FlashCardsApp {
-    type Message = ;
+    type Message = AppActions;
 
     fn new() -> Self {
-        Self {  }
+        Self {
+            learning: LearningElement::new()
+        }
     }
 
     fn title(&self) -> String {
