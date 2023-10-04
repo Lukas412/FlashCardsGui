@@ -2,7 +2,6 @@ use flash_card_parser::Topic;
 use iced::widget::Column;
 use std::fs::File;
 use std::io::BufReader;
-use std::{fs, io};
 
 pub(crate) struct LearningElement {
     topic: Topic<'static>,
